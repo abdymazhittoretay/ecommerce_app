@@ -15,4 +15,14 @@ class AuthService {
       password: password,
     );
   }
+
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+  }
 }
