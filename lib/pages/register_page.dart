@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -47,7 +49,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    register(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    );
+                  },
                   child: Text("Register"),
                 ),
               ],
@@ -56,5 +63,20 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  Future<void> register({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await authService.value.registerUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (mounted) Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
   }
 }
