@@ -42,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     hintText: "Your password",
                     border: OutlineInputBorder(),
                   ),
+                  obscureText: true,
                 ),
                 SizedBox(height: 12.0),
                 ElevatedButton(
