@@ -13,26 +13,32 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       appBar: AppBar(title: Text("Welcome Page"), centerTitle: true),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Welcome to E-Commerce App", style: TextStyle(fontSize: 24.0)),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Welcome to E-Commerce App",
+                style: TextStyle(fontSize: 24.0),
               ),
-              onPressed: () {},
-              child: Text("Get Started"),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                onPressed: () {},
+                child: Text("Get Started"),
               ),
-              onPressed: () {},
-              child: Text("Login"),
-            ),
-          ],
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(double.infinity, 50),
+                ),
+                onPressed: () {},
+                child: Text("Login"),
+              ),
+            ],
+          ),
         ),
       ),
     );
