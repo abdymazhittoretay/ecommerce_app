@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/pages/login_page.dart';
 import 'package:ecommerce_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,12 @@ class _WelcomePageState extends State<WelcomePage> {
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity, 50),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
                   child: Text("Login"),
                 ),
               ],
