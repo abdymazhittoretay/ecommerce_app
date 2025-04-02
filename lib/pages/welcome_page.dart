@@ -18,6 +18,20 @@ class _WelcomePageState extends State<WelcomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("Welcome to E-Commerce App", style: TextStyle(fontSize: 24.0)),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+              ),
+              onPressed: () {},
+              child: Text("Get Started"),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 50),
+              ),
+              onPressed: () {},
+              child: Text("Login"),
+            ),
           ],
         ),
       ),
