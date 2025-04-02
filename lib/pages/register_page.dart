@@ -54,15 +54,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () {
+                    loadDialog();
                     register(
                       email: _emailController.text,
                       password: _passwordController.text,
-                    );
-                    showDialog(
-                      context: context,
-                      builder:
-                          (context) =>
-                              Center(child: CircularProgressIndicator()),
                     );
                   },
                   child: Text("Register"),
@@ -75,23 +70,36 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+  void loadDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Center(child: CircularProgressIndicator()),
+    );
+  }
+
   Future<void> register({
     required String email,
     required String password,
   }) async {
-    try {
-      await authService.value.registerUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+    if (email.isEmpty || password.isEmpty) {
+      await Future.delayed(Durations.long4);
+      errorMessage = "One of the fields is not filled";
       if (mounted) Navigator.pop(context);
-      _emailController.clear();
-      _passwordController.clear();
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        errorMessage = e.message as String;
-      });
-      if (mounted) Navigator.pop(context);
+    } else {
+      try {
+        await authService.value.registerUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        if (mounted) Navigator.pop(context);
+        _emailController.clear();
+        _passwordController.clear();
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          errorMessage = e.message as String;
+        });
+        if (mounted) Navigator.pop(context);
+      }
     }
   }
 }
