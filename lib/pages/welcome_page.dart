@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -35,7 +36,12 @@ class _WelcomePageState extends State<WelcomePage> {
                     foregroundColor: Colors.white,
                     minimumSize: Size(double.infinity, 50),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()),
+                    );
+                  },
                   child: Text("Get Started"),
                 ),
                 SizedBox(height: 12.0),
