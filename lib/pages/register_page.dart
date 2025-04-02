@@ -58,6 +58,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       email: _emailController.text,
                       password: _passwordController.text,
                     );
+                    showDialog(
+                      context: context,
+                      builder:
+                          (context) =>
+                              Center(child: CircularProgressIndicator()),
+                    );
                   },
                   child: Text("Register"),
                 ),
@@ -85,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
       setState(() {
         errorMessage = e.message as String;
       });
+      if (mounted) Navigator.pop(context);
     }
   }
 }
