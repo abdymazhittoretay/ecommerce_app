@@ -83,7 +83,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }) async {
     if (email.isEmpty || password.isEmpty) {
       await Future.delayed(Durations.long4);
-      errorMessage = "One of the fields is not filled";
+      setState(() {
+        errorMessage = "One of the fields is not filled";
+      });
       if (mounted) Navigator.pop(context);
     } else {
       try {
