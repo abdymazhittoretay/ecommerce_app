@@ -12,6 +12,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String errorMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,8 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Text(errorMessage, style: TextStyle(color: Colors.red)),
+                SizedBox(height: 6.0),
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -77,7 +80,9 @@ class _RegisterPageState extends State<RegisterPage> {
       );
       if (mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      setState(() {
+        errorMessage = e.message as String;
+      });
     }
   }
 }
