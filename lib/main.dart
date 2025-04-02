@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/firebase_options.dart';
+import 'package:ecommerce_app/pages/welcome_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Scaffold());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: WelcomePage());
   }
 }
