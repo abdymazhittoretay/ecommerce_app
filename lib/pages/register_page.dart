@@ -15,21 +15,23 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Register Page"), centerTitle: true),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 12.0),
-            TextField(
-              controller: _passwordController,
-              decoration: InputDecoration(border: OutlineInputBorder()),
-            ),
-          ],
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(border: OutlineInputBorder()),
+              ),
+              SizedBox(height: 12.0),
+              TextField(
+                controller: _passwordController,
+                decoration: InputDecoration(border: OutlineInputBorder()),
+              ),
+            ],
+          ),
         ),
       ),
     );
