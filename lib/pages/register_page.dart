@@ -28,12 +28,18 @@ class _RegisterPageState extends State<RegisterPage> {
               children: [
                 TextField(
                   controller: _emailController,
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration: InputDecoration(
+                    hintText: "Your email",
+                    border: OutlineInputBorder(),
+                  ),
                 ),
                 SizedBox(height: 12.0),
                 TextField(
                   controller: _passwordController,
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration: InputDecoration(
+                    hintText: "Your password",
+                    border: OutlineInputBorder(),
+                  ),
                 ),
               ],
             ),
