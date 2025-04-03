@@ -46,6 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 12.0),
                 ElevatedButton(
                   onPressed: () {
+                    loadDialog();
                     login(
                       email: _emailController.text,
                       password: _passwordController.text,
@@ -61,19 +62,30 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  void loadDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Center(child: CircularProgressIndicator()),
+    );
+  }
+
   Future<void> login({required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
       print("One of the fields is empty");
+      await Future.delayed(Durations.long4);
+      if (mounted) Navigator.pop(context);
     } else {
       try {
         await authService.value.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
+        if (mounted) Navigator.pop(context);
         _emailController.clear();
         _passwordController.clear();
       } on FirebaseAuthException catch (e) {
         print(e.message);
+        if (mounted) Navigator.pop(context);
       }
     }
   }
