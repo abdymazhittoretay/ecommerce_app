@@ -29,7 +29,11 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(errorMessage, style: TextStyle(color: Colors.red)),
+                Text(
+                  errorMessage,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.red),
+                ),
                 SizedBox(height: 6.0),
                 TextField(
                   controller: _emailController,
