@@ -41,7 +41,6 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Your email",
                     border: OutlineInputBorder(),
                   ),
-                  obscureText: true,
                 ),
                 SizedBox(height: 12.0),
                 TextField(
@@ -50,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
                     hintText: "Your password",
                     border: OutlineInputBorder(),
                   ),
+                  obscureText: true,
                 ),
                 SizedBox(height: 12.0),
                 ElevatedButton(
