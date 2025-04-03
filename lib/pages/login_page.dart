@@ -74,10 +74,10 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> login({required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
+      await Future.delayed(Durations.long4);
       setState(() {
         errorMessage = "One of the fields is empty";
       });
-      await Future.delayed(Durations.long4);
       if (mounted) Navigator.pop(context);
     } else {
       try {
