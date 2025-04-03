@@ -15,29 +15,31 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Login Page"), centerTitle: true),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              TextField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  hintText: "Your email",
-                  border: OutlineInputBorder(),
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: "Your email",
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-              SizedBox(height: 12.0),
-              TextField(
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  hintText: "Your password",
-                  border: OutlineInputBorder(),
+                SizedBox(height: 12.0),
+                TextField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    hintText: "Your password",
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
