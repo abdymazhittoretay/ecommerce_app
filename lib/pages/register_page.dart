@@ -100,6 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
         if (mounted) Navigator.pop(context);
         _emailController.clear();
         _passwordController.clear();
+        if (mounted) Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
         setState(() {
           errorMessage = e.message as String;
