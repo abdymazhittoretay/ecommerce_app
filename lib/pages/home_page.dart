@@ -18,7 +18,6 @@ class _HomePageState extends State<HomePage> {
         leading: IconButton(
           onPressed: () async {
             await authService.value.signOut();
-            if (context.mounted) Navigator.pop(context);
           },
           icon: Icon(Icons.exit_to_app),
         ),
