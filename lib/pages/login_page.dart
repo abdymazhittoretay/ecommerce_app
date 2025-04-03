@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,7 +20,10 @@ class _LoginPageState extends State<LoginPage> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 12.0,
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,11 +43,38 @@ class _LoginPageState extends State<LoginPage> {
                     border: OutlineInputBorder(),
                   ),
                 ),
+                SizedBox(height: 12.0),
+                ElevatedButton(
+                  onPressed: () {
+                    login(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                    );
+                  },
+                  child: Text("Login"),
+                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> login({required String email, required String password}) async {
+    if (email.isEmpty || password.isEmpty) {
+      print("One of the fields is empty");
+    } else {
+      try {
+        await authService.value.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+        _emailController.clear();
+        _passwordController.clear();
+      } on FirebaseAuthException catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
