@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String errorMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,8 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Text(errorMessage, style: TextStyle(color: Colors.red)),
+                SizedBox(height: 6.0),
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -71,7 +74,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> login({required String email, required String password}) async {
     if (email.isEmpty || password.isEmpty) {
-      print("One of the fields is empty");
+      setState(() {
+        errorMessage = "One of the fields is empty";
+      });
       await Future.delayed(Durations.long4);
       if (mounted) Navigator.pop(context);
     } else {
@@ -84,7 +89,9 @@ class _LoginPageState extends State<LoginPage> {
         _emailController.clear();
         _passwordController.clear();
       } on FirebaseAuthException catch (e) {
-        print(e.message);
+        setState(() {
+          errorMessage = e.message as String;
+        });
         if (mounted) Navigator.pop(context);
       }
     }
