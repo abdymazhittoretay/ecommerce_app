@@ -22,6 +22,41 @@ class _HomePageState extends State<HomePage> {
           icon: Icon(Icons.exit_to_app),
         ),
       ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text("Update username"),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text("Change password"),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Text("Delete User"),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.arrow_forward_ios),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
