@@ -29,6 +29,9 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Spacer(),
+              Icon(Icons.person),
+              Spacer(),
               ListTile(
                 contentPadding: EdgeInsets.zero,
                 title: Text("Update username"),
@@ -53,6 +56,7 @@ class _HomePageState extends State<HomePage> {
                   icon: Icon(Icons.arrow_forward_ios),
                 ),
               ),
+              Spacer(),
             ],
           ),
         ),
