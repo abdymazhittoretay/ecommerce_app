@@ -9,6 +9,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String? username = AuthService().currentUser!.displayName;
+  String? email = AuthService().currentUser!.email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +34,13 @@ class _HomePageState extends State<HomePage> {
             children: [
               Spacer(),
               Icon(Icons.person, size: 100.0),
+              Text(
+                (username == null || username!.isEmpty)
+                    ? "You didn't specify username"
+                    : username!,
+              ),
+              SizedBox(height: 8.0),
+              Text(email!),
               Spacer(),
               ListTile(
                 contentPadding: EdgeInsets.zero,
