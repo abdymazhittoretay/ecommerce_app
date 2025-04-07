@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ListTile(
                 contentPadding: EdgeInsets.zero,
-                title: Text("Delete User"),
+                title: Text("Delete user"),
                 trailing: IconButton(
                   onPressed: () {},
                   icon: Icon(Icons.arrow_forward_ios),
