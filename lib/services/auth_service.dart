@@ -40,4 +40,17 @@ class AuthService {
   Future<void> updateUsername({required String newUsername}) async {
     await currentUser!.updateDisplayName(newUsername);
   }
+
+  Future<void> deleteUser({
+    required String email,
+    required String password,
+  }) async {
+    AuthCredential credential = EmailAuthProvider.credential(
+      email: email,
+      password: password,
+    );
+    await currentUser!.reauthenticateWithCredential(credential);
+    await currentUser!.delete();
+    await _instance.signOut();
+  }
 }
