@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Spacer(),
-              Icon(Icons.person),
+              Icon(Icons.person, size: 100.0),
               Spacer(),
               ListTile(
                 contentPadding: EdgeInsets.zero,
