@@ -17,12 +17,20 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              hintText: "New username",
-              border: OutlineInputBorder(),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  hintText: "New username",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 12.0),
+              ElevatedButton(onPressed: () {}, child: Text("Update")),
+            ],
           ),
         ),
       ),
