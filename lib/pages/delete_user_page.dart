@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DeleteUserPage extends StatefulWidget {
@@ -38,11 +40,34 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
                 ),
               ),
               SizedBox(height: 12.0),
-              ElevatedButton(onPressed: () {}, child: Text("Delete account")),
+              ElevatedButton(
+                onPressed: () {
+                  deleteUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                  );
+                },
+                child: Text("Delete account"),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> deleteUser({
+    required String email,
+    required String password,
+  }) async {
+    if (email.isNotEmpty && password.isNotEmpty) {
+      try {
+        await authService.value.deleteUser(email: email, password: password);
+        _emailController.clear();
+        _passwordController.clear();
+      } on FirebaseAuthException catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
