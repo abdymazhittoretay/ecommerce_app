@@ -55,7 +55,7 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
   Future<void> updateUsername({required String newUsername}) async {
     if (newUsername.isNotEmpty) {
       try {
-        await AuthService().updateUsername(newUsername: newUsername);
+        await authService.value.updateUsername(newUsername: newUsername);
         _controller.clear();
         if (mounted) Navigator.pop(context);
         if (mounted) Navigator.pop(context, true);
