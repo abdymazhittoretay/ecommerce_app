@@ -33,6 +33,7 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
               SizedBox(height: 12.0),
               ElevatedButton(
                 onPressed: () {
+                  loadDialog();
                   updateUsername(newUsername: _controller.text);
                 },
                 child: Text("Update"),
@@ -44,11 +45,19 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
     );
   }
 
+  void loadDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Center(child: CircularProgressIndicator()),
+    );
+  }
+
   Future<void> updateUsername({required String newUsername}) async {
     if (newUsername.isNotEmpty) {
       try {
         await AuthService().updateUsername(newUsername: newUsername);
         _controller.clear();
+        if (mounted) Navigator.pop(context);
         if (mounted) Navigator.pop(context, true);
       } on FirebaseAuthException catch (e) {
         print(e.message);
