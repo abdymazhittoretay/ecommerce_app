@@ -10,8 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? username = AuthService().currentUser!.displayName;
-  String? email = AuthService().currentUser!.email;
+  String? username = authService.value.currentUser!.displayName;
+  String? email = authService.value.currentUser!.email;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,13 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               Icon(Icons.person, size: 100.0),
               Text(
-                (username == null || username!.isEmpty)
+                (authService.value.currentUser!.displayName == null ||
+                        authService.value.currentUser!.displayName!.isEmpty)
                     ? "You didn't specify username"
-                    : username!,
+                    : authService.value.currentUser!.displayName!,
               ),
               SizedBox(height: 8.0),
-              Text(email!),
+              Text(authService.value.currentUser!.email!),
               Spacer(),
               ListTile(
                 contentPadding: EdgeInsets.zero,
@@ -53,7 +54,11 @@ class _HomePageState extends State<HomePage> {
                       MaterialPageRoute(
                         builder: (context) => UpdateUsernamePage(),
                       ),
-                    );
+                    ).then((wasChanged) {
+                      if (wasChanged) {
+                        setState(() {});
+                      }
+                    });
                   },
                   icon: Icon(Icons.arrow_forward_ios),
                 ),

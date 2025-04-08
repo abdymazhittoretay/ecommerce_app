@@ -49,7 +49,7 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
       try {
         await AuthService().updateUsername(newUsername: newUsername);
         _controller.clear();
-        if (mounted) Navigator.pop(context);
+        if (mounted) Navigator.pop(context, true);
       } on FirebaseAuthException catch (e) {
         print(e.message);
       }
