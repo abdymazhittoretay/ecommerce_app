@@ -42,6 +42,7 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
               SizedBox(height: 12.0),
               ElevatedButton(
                 onPressed: () {
+                  loadDialog();
                   deleteUser(
                     email: _emailController.text,
                     password: _passwordController.text,
@@ -56,6 +57,13 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
     );
   }
 
+  void loadDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Center(child: CircularProgressIndicator()),
+    );
+  }
+
   Future<void> deleteUser({
     required String email,
     required String password,
@@ -65,9 +73,16 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
         await authService.value.deleteUser(email: email, password: password);
         _emailController.clear();
         _passwordController.clear();
+        if (mounted) {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }
       } on FirebaseAuthException catch (e) {
         print(e.message);
       }
+    } else {
+      await Future.delayed(Durations.long4);
+      if (mounted) Navigator.pop(context);
     }
   }
 }
