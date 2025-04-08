@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/pages/change_password_page.dart';
+import 'package:ecommerce_app/pages/delete_user_page.dart';
 import 'package:ecommerce_app/pages/update_username_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,12 @@ class _HomePageState extends State<HomePage> {
                 contentPadding: EdgeInsets.zero,
                 title: Text("Delete user"),
                 trailing: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => DeleteUserPage()),
+                    );
+                  },
                   icon: Icon(Icons.arrow_forward_ios),
                 ),
               ),
