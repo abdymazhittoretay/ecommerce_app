@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordPage extends StatefulWidget {
@@ -48,11 +50,40 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 ),
               ),
               SizedBox(height: 12.0),
-              ElevatedButton(onPressed: () {}, child: Text("Change password")),
+              ElevatedButton(
+                onPressed: () {
+                  changePassword(
+                    email: _emailController.text,
+                    currentPassword: _currentPasswordController.text,
+                    newPassword: _newPasswordController.text,
+                  );
+                },
+                child: Text("Change password"),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> changePassword({
+    required String email,
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    if (email.isNotEmpty &&
+        currentPassword.isNotEmpty &&
+        newPassword.isNotEmpty) {
+      try {
+        await authService.value.changePassword(
+          email: email,
+          currentPassword: currentPassword,
+          newPassword: newPassword,
+        );
+      } on FirebaseAuthException catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
