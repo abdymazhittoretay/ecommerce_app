@@ -47,6 +47,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                   border: OutlineInputBorder(),
                 ),
               ),
+              SizedBox(height: 12.0),
+              ElevatedButton(onPressed: () {}, child: Text("Change password")),
             ],
           ),
         ),
