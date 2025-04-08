@@ -52,6 +52,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               SizedBox(height: 12.0),
               ElevatedButton(
                 onPressed: () {
+                  loadDialog();
                   changePassword(
                     email: _emailController.text,
                     currentPassword: _currentPasswordController.text,
@@ -64,6 +65,13 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void loadDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Center(child: CircularProgressIndicator()),
     );
   }
 
@@ -81,6 +89,14 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
           currentPassword: currentPassword,
           newPassword: newPassword,
         );
+
+        if (mounted) {
+          Navigator.pop(context);
+          Navigator.pop(context, true);
+        }
+        _emailController.clear();
+        _currentPasswordController.clear();
+        _newPasswordController.clear();
       } on FirebaseAuthException catch (e) {
         print(e.message);
       }
