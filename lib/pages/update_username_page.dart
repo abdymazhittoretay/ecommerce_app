@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UpdateUsernamePage extends StatefulWidget {
@@ -29,11 +31,28 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
                 ),
               ),
               SizedBox(height: 12.0),
-              ElevatedButton(onPressed: () {}, child: Text("Update")),
+              ElevatedButton(
+                onPressed: () {
+                  updateUsername(newUsername: _controller.text);
+                },
+                child: Text("Update"),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> updateUsername({required String newUsername}) async {
+    if (newUsername.isNotEmpty) {
+      try {
+        await AuthService().updateUsername(newUsername: newUsername);
+        _controller.clear();
+        if (mounted) Navigator.pop(context);
+      } on FirebaseAuthException catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
