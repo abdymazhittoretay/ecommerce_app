@@ -8,10 +8,46 @@ class ChangePasswordPage extends StatefulWidget {
 }
 
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _currentPasswordController =
+      TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Change password"), centerTitle: true),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                hintText: "Your email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12.0),
+            TextField(
+              controller: _currentPasswordController,
+              decoration: InputDecoration(
+                hintText: "Your current password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 12.0),
+            TextField(
+              controller: _newPasswordController,
+              decoration: InputDecoration(
+                hintText: "Your new password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
