@@ -35,6 +35,8 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
                 border: OutlineInputBorder(),
               ),
             ),
+            SizedBox(height: 12.0),
+            ElevatedButton(onPressed: () {}, child: Text("Delete account")),
           ],
         ),
       ),
