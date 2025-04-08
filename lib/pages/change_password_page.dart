@@ -91,15 +91,19 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         );
 
         if (mounted) {
-          Navigator.pop(context);
-          Navigator.pop(context, true);
+          int count = 0;
+          Navigator.popUntil(context, (_) => count++ >= 2);
         }
         _emailController.clear();
         _currentPasswordController.clear();
         _newPasswordController.clear();
       } on FirebaseAuthException catch (e) {
+        if (mounted) Navigator.pop(context);
         print(e.message);
       }
+    } else {
+      await Future.delayed(Durations.long4);
+      if (mounted) Navigator.pop(context);
     }
   }
 }
