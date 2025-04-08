@@ -15,11 +15,14 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
     return Scaffold(
       appBar: AppBar(title: Text("Update Username"), centerTitle: true),
       body: Center(
-        child: TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            hintText: "New username",
-            border: OutlineInputBorder(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+              hintText: "New username",
+              border: OutlineInputBorder(),
+            ),
           ),
         ),
       ),
