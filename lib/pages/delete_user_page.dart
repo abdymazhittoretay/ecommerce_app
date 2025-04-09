@@ -26,7 +26,11 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              Text(
+                errorMessage,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.red),
+              ),
               SizedBox(height: 6.0),
               TextField(
                 controller: _emailController,
