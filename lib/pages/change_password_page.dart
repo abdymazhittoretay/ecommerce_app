@@ -35,6 +35,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
               SizedBox(height: 12.0),
               TextField(
+                obscureText: true,
                 controller: _currentPasswordController,
                 decoration: InputDecoration(
                   hintText: "Your current password",
@@ -43,6 +44,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               ),
               SizedBox(height: 12.0),
               TextField(
+                obscureText: true,
                 controller: _newPasswordController,
                 decoration: InputDecoration(
                   hintText: "Your new password",

@@ -33,6 +33,7 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
               ),
               SizedBox(height: 12.0),
               TextField(
+                obscureText: true,
                 controller: _passwordController,
                 decoration: InputDecoration(
                   hintText: "Your password",
