@@ -120,4 +120,12 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
       if (mounted) Navigator.pop(context);
     }
   }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _currentPasswordController.dispose();
+    _newPasswordController.dispose();
+    super.dispose();
+  }
 }

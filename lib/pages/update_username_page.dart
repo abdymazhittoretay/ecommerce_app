@@ -79,4 +79,10 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
       if (mounted) Navigator.pop(context);
     }
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 }
