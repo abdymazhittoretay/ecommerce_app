@@ -13,6 +13,8 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  String errorMessage = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +26,8 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 6.0),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -79,10 +83,16 @@ class _DeleteUserPageState extends State<DeleteUserPage> {
           Navigator.pop(context);
         }
       } on FirebaseAuthException catch (e) {
-        print(e.message);
+        setState(() {
+          errorMessage = e.message as String;
+        });
+        if (mounted) Navigator.pop(context);
       }
     } else {
       await Future.delayed(Durations.long4);
+      setState(() {
+        errorMessage = "One of the fields is empty";
+      });
       if (mounted) Navigator.pop(context);
     }
   }
