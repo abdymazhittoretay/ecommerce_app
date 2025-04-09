@@ -14,6 +14,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final TextEditingController _currentPasswordController =
       TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
+  String errorMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 6.0),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
@@ -100,11 +103,16 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
         _currentPasswordController.clear();
         _newPasswordController.clear();
       } on FirebaseAuthException catch (e) {
+        setState(() {
+          errorMessage = e.message as String;
+        });
         if (mounted) Navigator.pop(context);
-        print(e.message);
       }
     } else {
       await Future.delayed(Durations.long4);
+      setState(() {
+        errorMessage = "One of the fields is empty";
+      });
       if (mounted) Navigator.pop(context);
     }
   }
