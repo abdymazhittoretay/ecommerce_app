@@ -11,6 +11,7 @@ class UpdateUsernamePage extends StatefulWidget {
 
 class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
   final TextEditingController _controller = TextEditingController();
+  String errorMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,8 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 6.0),
               TextField(
                 controller: _controller,
                 decoration: InputDecoration(
@@ -60,8 +63,16 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
         if (mounted) Navigator.pop(context);
         if (mounted) Navigator.pop(context, true);
       } on FirebaseAuthException catch (e) {
-        print(e.message);
+        setState(() {
+          errorMessage = e.message as String;
+        });
       }
+    } else {
+      await Future.delayed(Durations.long4);
+      setState(() {
+        errorMessage = "Field is empty";
+      });
+      if (mounted) Navigator.pop(context);
     }
   }
 }
