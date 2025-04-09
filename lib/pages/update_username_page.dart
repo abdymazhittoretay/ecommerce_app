@@ -16,7 +16,7 @@ class _UpdateUsernamePageState extends State<UpdateUsernamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Update Username"), centerTitle: true),
+      appBar: AppBar(title: Text("Update username"), centerTitle: true),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
