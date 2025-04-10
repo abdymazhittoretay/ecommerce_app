@@ -52,6 +52,20 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                 ),
                 SizedBox(height: 12.0),
+                GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Forgot password?",
+                      style: TextStyle(
+                        color: Colors.deepPurple,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 12.0),
                 ElevatedButton(
                   onPressed: () {
                     loadDialog();
