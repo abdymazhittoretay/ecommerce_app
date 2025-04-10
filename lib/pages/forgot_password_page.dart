@@ -11,6 +11,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final TextEditingController _controller = TextEditingController();
+  String errorMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              Text(errorMessage, style: TextStyle(color: Colors.red)),
+              SizedBox(height: 6.0),
               TextField(
                 controller: _controller,
                 decoration: InputDecoration(
@@ -49,8 +52,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       try {
         await authService.value.resetPassword(email: email);
       } on FirebaseAuthException catch (e) {
-        print(e.message);
+        setState(() {
+          errorMessage = e.message as String;
+        });
       }
+    } else {
+      setState(() {
+        errorMessage = "One of the fields is empty";
+      });
     }
   }
 }
