@@ -59,6 +59,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     if (email.isNotEmpty) {
       try {
         await authService.value.resetPassword(email: email);
+        if (errorMessage != "") {
+          setState(() {
+            errorMessage = "";
+          });
+        }
         if (mounted) Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
         setState(() {
