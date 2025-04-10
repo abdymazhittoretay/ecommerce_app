@@ -36,6 +36,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
               SizedBox(height: 12.0),
               ElevatedButton(
                 onPressed: () {
+                  loadDialog();
                   resetPassword(email: _controller.text);
                 },
                 child: Text("Reset password"),
@@ -47,19 +48,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 
+  void loadDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => Center(child: CircularProgressIndicator()),
+    );
+  }
+
   Future<void> resetPassword({required String email}) async {
     if (email.isNotEmpty) {
       try {
         await authService.value.resetPassword(email: email);
+        if (mounted) Navigator.pop(context);
       } on FirebaseAuthException catch (e) {
         setState(() {
           errorMessage = e.message as String;
         });
+        if (mounted) Navigator.pop(context);
       }
     } else {
+      await Future.delayed(Durations.long4);
       setState(() {
         errorMessage = "One of the fields is empty";
       });
+      if (mounted) Navigator.pop(context);
     }
   }
 }
