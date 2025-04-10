@@ -17,12 +17,20 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-          child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              hintText: "Your email",
-              border: OutlineInputBorder(),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  hintText: "Your email",
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 12.0),
+              ElevatedButton(onPressed: () {}, child: Text("Reset password")),
+            ],
           ),
         ),
       ),
