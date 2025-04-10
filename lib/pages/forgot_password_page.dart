@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -29,11 +31,26 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
               ),
               SizedBox(height: 12.0),
-              ElevatedButton(onPressed: () {}, child: Text("Reset password")),
+              ElevatedButton(
+                onPressed: () {
+                  resetPassword(email: _controller.text);
+                },
+                child: Text("Reset password"),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> resetPassword({required String email}) async {
+    if (email.isNotEmpty) {
+      try {
+        await authService.value.resetPassword(email: email);
+      } on FirebaseAuthException catch (e) {
+        print(e.message);
+      }
+    }
   }
 }
