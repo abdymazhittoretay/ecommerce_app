@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/pages/home_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -28,7 +29,16 @@ class _VerificationPageState extends State<VerificationPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Text("Verification message was sent to your email")],
+              children: [
+                Text("Verification message was sent to your email"),
+                SizedBox(height: 12.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    await authService.value.signOut();
+                  },
+                  child: Text("Cancel"),
+                ),
+              ],
             ),
           ),
         );
