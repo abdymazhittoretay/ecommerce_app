@@ -86,7 +86,12 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text("Login"),
                 ),
                 Spacer(),
-                ElevatedButton(onPressed: () {}, child: Text("Google sign in")),
+                ElevatedButton(
+                  onPressed: () {
+                    signInWithGoogle();
+                  },
+                  child: Text("Google sign in"),
+                ),
               ],
             ),
           ),
@@ -126,6 +131,10 @@ class _LoginPageState extends State<LoginPage> {
         if (mounted) Navigator.pop(context);
       }
     }
+  }
+
+  Future<void> signInWithGoogle() async {
+    await authService.value.signInWithGoogle();
   }
 
   @override
