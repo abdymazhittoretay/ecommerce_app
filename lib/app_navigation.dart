@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/pages/home_page.dart';
+import 'package:ecommerce_app/pages/verification_page.dart';
 import 'package:ecommerce_app/pages/welcome_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,7 @@ class AppNavigation extends StatelessWidget {
           stream: service.authStateChange,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return HomePage();
+              return VerificationPage();
             } else {
               return WelcomePage();
             }
