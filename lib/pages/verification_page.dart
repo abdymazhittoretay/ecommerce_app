@@ -13,7 +13,8 @@ class VerificationPage extends StatefulWidget {
 
 class _VerificationPageState extends State<VerificationPage> {
   late bool isVerified;
-  late Timer timer;
+  bool canResend = false;
+  Timer? timer;
 
   @override
   void initState() {
@@ -34,12 +35,20 @@ class _VerificationPageState extends State<VerificationPage> {
       isVerified = authService.value.currentUser!.emailVerified;
     });
 
-    if (isVerified) timer.cancel();
+    if (isVerified) timer?.cancel();
   }
 
   Future<void> sendVerification() async {
     try {
       await authService.value.currentUser!.sendEmailVerification();
+
+      setState(() {
+        canResend = false;
+      });
+      await Future.delayed(Duration(seconds: 60));
+      setState(() {
+        canResend = true;
+      });
     } catch (e) {
       print(e);
     }
@@ -47,7 +56,7 @@ class _VerificationPageState extends State<VerificationPage> {
 
   @override
   void dispose() {
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
   }
 
@@ -65,7 +74,7 @@ class _VerificationPageState extends State<VerificationPage> {
                 Text("Verification message was sent to your email"),
                 SizedBox(height: 12.0),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: canResend ? sendVerification : null,
                   child: Text("Resend verification message"),
                 ),
                 SizedBox(height: 6.0),
