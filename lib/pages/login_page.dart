@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Spacer(),
                 Text(
                   errorMessage,
                   textAlign: TextAlign.center,
@@ -84,6 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: Text("Login"),
                 ),
+                Spacer(),
+                ElevatedButton(onPressed: () {}, child: Text("Google sign in")),
               ],
             ),
           ),
