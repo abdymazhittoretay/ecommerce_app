@@ -134,7 +134,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> signInWithGoogle() async {
-    await authService.value.signInWithGoogle();
+    try {
+      await authService.value.signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message as String;
+      });
+    }
   }
 
   @override
