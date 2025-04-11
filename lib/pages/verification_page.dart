@@ -33,6 +33,11 @@ class _VerificationPageState extends State<VerificationPage> {
                 Text("Verification message was sent to your email"),
                 SizedBox(height: 12.0),
                 ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Resend verification message"),
+                ),
+                SizedBox(height: 6.0),
+                ElevatedButton(
                   onPressed: () async {
                     await authService.value.signOut();
                   },
