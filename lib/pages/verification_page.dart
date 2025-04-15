@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:ecommerce_app/pages/home_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -13,7 +11,7 @@ class VerificationPage extends StatefulWidget {
 }
 
 class _VerificationPageState extends State<VerificationPage> {
-  late bool isVerified;
+  bool isVerified = false;
   bool canResend = false;
   Timer? timer;
   Timer? resendTimer;
@@ -21,43 +19,52 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   void initState() {
     super.initState();
-    isVerified = authService.value.currentUser!.emailVerified;
+    final user = authService.value.currentUser;
 
-    if (!isVerified && mounted) {
-      sendVerification();
+    if (user != null) {
+      isVerified = user.emailVerified;
 
-      timer = Timer.periodic(Durations.medium2, (_) => checkVerification());
+      if (!isVerified) {
+        sendVerification();
+        timer = Timer.periodic(
+          const Duration(seconds: 3),
+          (_) => checkVerification(),
+        );
+      }
     }
   }
 
   Future<void> checkVerification() async {
+    final user = authService.value.currentUser;
+    if (user == null) return;
+
     try {
-      await authService.value.currentUser!.reload();
+      await user.reload();
+      final refreshedUser = authService.value.currentUser;
 
       if (!mounted) return;
 
       setState(() {
-        isVerified = authService.value.currentUser!.emailVerified;
+        isVerified = refreshedUser?.emailVerified ?? false;
       });
 
       if (isVerified) timer?.cancel();
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
+    } catch (e) {
+      print(e);
     }
   }
 
   Future<void> sendVerification() async {
-    try {
-      await authService.value.currentUser!.sendEmailVerification();
+    final user = authService.value.currentUser;
+    if (user == null) return;
 
-      setState(() {
-        canResend = false;
-      });
-      resendTimer = Timer(Duration(seconds: 60), () {
+    try {
+      await user.sendEmailVerification();
+      setState(() => canResend = false);
+
+      resendTimer = Timer(const Duration(seconds: 60), () {
         if (!mounted) return;
-        setState(() {
-          canResend = true;
-        });
+        setState(() => canResend = true);
       });
     } catch (e) {
       print(e);
@@ -73,31 +80,36 @@ class _VerificationPageState extends State<VerificationPage> {
 
   @override
   Widget build(BuildContext context) {
-    return isVerified
-        ? HomePage()
-        : Scaffold(
-          appBar: AppBar(title: Text("Verification Page"), centerTitle: true),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text("Verification message was sent to your email"),
-                SizedBox(height: 12.0),
-                ElevatedButton(
-                  onPressed: canResend ? sendVerification : null,
-                  child: Text("Resend verification message"),
-                ),
-                SizedBox(height: 6.0),
-                ElevatedButton(
-                  onPressed: () async {
-                    await authService.value.signOut();
-                  },
-                  child: Text("Cancel"),
-                ),
-              ],
+    final user = authService.value.currentUser;
+
+    if (user == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (isVerified) return const HomePage();
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Verification Page"), centerTitle: true),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Verification message was sent to your email."),
+            const SizedBox(height: 12.0),
+            ElevatedButton(
+              onPressed: canResend ? sendVerification : null,
+              child: const Text("Resend verification message"),
             ),
-          ),
-        );
+            const SizedBox(height: 6.0),
+            ElevatedButton(
+              onPressed: () async {
+                await authService.value.signOut();
+              },
+              child: const Text("Cancel"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
