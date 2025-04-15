@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:ecommerce_app/pages/home_page.dart';
 import 'package:ecommerce_app/services/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerificationPage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _VerificationPageState extends State<VerificationPage> {
     super.initState();
     isVerified = authService.value.currentUser!.emailVerified;
 
-    if (!isVerified) {
+    if (!isVerified && mounted) {
       sendVerification();
 
       timer = Timer.periodic(Durations.medium2, (_) => checkVerification());
@@ -30,13 +31,19 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   Future<void> checkVerification() async {
-    await authService.value.currentUser!.reload();
+    try {
+      await authService.value.currentUser!.reload();
 
-    setState(() {
-      isVerified = authService.value.currentUser!.emailVerified;
-    });
+      if (!mounted) return;
 
-    if (isVerified) timer?.cancel();
+      setState(() {
+        isVerified = authService.value.currentUser!.emailVerified;
+      });
+
+      if (isVerified) timer?.cancel();
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
+    }
   }
 
   Future<void> sendVerification() async {
