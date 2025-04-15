@@ -73,7 +73,9 @@ class _RegisterPageState extends State<RegisterPage> {
                     backgroundColor: Theme.of(context).primaryColor,
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    signInWithGoogle();
+                  },
                   child: Text("Google sign in"),
                 ),
               ],
@@ -117,6 +119,16 @@ class _RegisterPageState extends State<RegisterPage> {
         });
         if (mounted) Navigator.pop(context);
       }
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      await authService.value.signInWithGoogle();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message as String;
+      });
     }
   }
 
