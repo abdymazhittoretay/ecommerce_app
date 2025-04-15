@@ -15,6 +15,7 @@ class _VerificationPageState extends State<VerificationPage> {
   late bool isVerified;
   bool canResend = false;
   Timer? timer;
+  Timer? resendTimer;
 
   @override
   void initState() {
@@ -45,9 +46,11 @@ class _VerificationPageState extends State<VerificationPage> {
       setState(() {
         canResend = false;
       });
-      await Future.delayed(Duration(seconds: 60));
-      setState(() {
-        canResend = true;
+      resendTimer = Timer(Duration(seconds: 60), () {
+        if (!mounted) return;
+        setState(() {
+          canResend = true;
+        });
       });
     } catch (e) {
       print(e);
@@ -57,6 +60,7 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   void dispose() {
     timer?.cancel();
+    resendTimer?.cancel();
     super.dispose();
   }
 
