@@ -29,6 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Spacer(),
                 Text(
                   errorMessage,
                   textAlign: TextAlign.center,
@@ -65,6 +66,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     );
                   },
                   child: Text("Register"),
+                ),
+                Spacer(),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () {},
+                  child: Text("Google sign in"),
                 ),
               ],
             ),
